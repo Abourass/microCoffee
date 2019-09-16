@@ -47,37 +47,35 @@ app.use(async ctx => {
     "blocks": [
       {
         "type": "section",
-        "response_type": "in_channel",
         "text": {
           "type": "mrkdwn",
           "text": "I'm the *coffee cloud*, and I want to know if you would like to get some coffee with everyone?"
-        },
+        }
       },
       {
-        "type": "section",
-        "text": "Choose a response",
+        "type": "actions",
         "block_id": "coffee_response",
-        "color": "#13a9e3",
-        "actions": [
+        "elements": [
           {
-            "name": "yes",
-            "text": "Yes",
             "type": "button",
-            "value": "true"
+            "text": {
+              "type": "plain_text",
+              "text": "Yes"
+            },
+            "value": "true",
+            "action_id": "willComeButton",
+            "style": "primary"
           },
           {
-            "name": "no",
-            "text": "No",
-            "style": "danger",
             "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "No"
+            },
             "value": "false",
-            confirm: {
-              "title": "Are you sure?",
-              "text": "C'mon...",
-              "ok_text": "Yes",
-              "dismiss_text": "No, I'm sure"
-            }
-          },
+            "action_id": "wontComeButton",
+            "style": "danger"
+          }
         ]
       }]
   };
