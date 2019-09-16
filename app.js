@@ -51,43 +51,42 @@ app.use(async ctx => {
           "type": "mrkdwn",
           "text": "I'm the *coffee cloud*, and I want to know if you would like to get some coffee with everyone?"
         },
-        "attachments": [
-          {
-            "text": "Choose a response",
-            "fallback": "Fuck, you broke it me",
-            "callback_id": "coffee_response",
-            "color": "#13a9e3",
-            "attachment_type": "default",
-            "actions": [
-              {
-                "name": "yes",
-                "text": "Yes",
-                "type": "button",
-                "value": "true"
-              },
-              {
-                "name": "no",
-                "text": "No",
-                "style": "danger",
-                "type": "button",
-                "value": "false",
-                confirm: {
-                  "title": "Are you sure?",
-                  "text": "C'mon...",
-                  "ok_text": "Yes",
-                  "dismiss_text": "No, I'm sure"
-                }
-              },
-            ]
-          }
-        ]
       },
-    ]
+      {
+        "type": "divider"
+      },
+      {
+        "text": "Choose a response",
+        "fallback": "Fuck, you broke it me",
+        "callback_id": "coffee_response",
+        "color": "#13a9e3",
+        "attachment_type": "default",
+        "actions": [
+          {
+            "name": "yes",
+            "text": "Yes",
+            "type": "button",
+            "value": "true"
+          },
+          {
+            "name": "no",
+            "text": "No",
+            "style": "danger",
+            "type": "button",
+            "value": "false",
+            confirm: {
+              "title": "Are you sure?",
+              "text": "C'mon...",
+              "ok_text": "Yes",
+              "dismiss_text": "No, I'm sure"
+            }
+          },
+        ]
+      }]
   };
   console.log(body);
   ctx.body = slackMsg;
-})
-;
+});
 
 const port = normalizePort(process.env.PORT || '2777'); // Get port from environment
 app.listen(port);
