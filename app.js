@@ -41,8 +41,9 @@ app.use(async (ctx, next) => {
 app.use(async ctx => {
   const body = ctx.request.body;
   if (!body) ctx.throw(400, 'body required');
+  const channel = body.channel_id;
   const slackMsg = {
-    "channel": body.channel_id,
+    "channel": channel,
     "blocks": [
       {
         "type": "section",
@@ -53,14 +54,10 @@ app.use(async ctx => {
         },
       },
       {
-        "type": "divider"
-      },
-      {
         "text": "Choose a response",
         "fallback": "Fuck, you broke it me",
         "callback_id": "coffee_response",
         "color": "#13a9e3",
-        "attachment_type": "default",
         "actions": [
           {
             "name": "yes",
