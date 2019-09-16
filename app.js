@@ -8,6 +8,13 @@ const ip = require('ip');
 
 const app = module.exports = new Koa();
 
+function normalizePort(val) { // ========================================| Normalize a port into a number, string, or false
+  const port = parseInt(val, 10);
+  if (typeof port !== 'number') { return val; }
+  if (port >= 0) { return port; }
+  return false;
+}
+
 // Initiate koa-body
 app.use(koaBody({jsonLimit: '15kb'}));
 
@@ -34,5 +41,9 @@ app.use(async ctx => {
   ctx.body = body;
 });
 
-app.listen(2777);
+
+const port = normalizePort(process.env.PORT || '2777'); // Get port from environment
+
+
+app.listen(port);
 console.log(`Development started on http://${ip.address()}:2777`);
