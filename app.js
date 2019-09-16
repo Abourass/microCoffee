@@ -37,13 +37,18 @@ app.use(async (ctx, next) => {
 app.use(async ctx => {
   const body = ctx.request.body;
   if (!body) ctx.throw(400, 'body required');
+const slackMsg = {
+  "type": "section",
+  "text": {
+    "type": "mrkdwn",
+    "text": `${body.user_id} wants to know if you would like to join them in getting coffee?`
+  }
+};
+
   console.log(body);
-  ctx.body = body;
+
+  ctx.body = slackMsg;
 });
 
-
 const port = normalizePort(process.env.PORT || '2777'); // Get port from environment
-
-
 app.listen(port);
-console.log(`Development started on http://${ip.address()}:2777`);
