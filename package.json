@@ -2,10 +2,11 @@
   "name": "coffee",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npx nodemon app.js",
-    "start": "node app.js"
+    "dev": "npx nodemon ./bin/server.js",
+    "start": "node ./bin/server.js"
   },
   "dependencies": {
+    "@koa/router": "^8.0.1",
     "ip": "^1.1.5",
     "koa": "^2.8.1",
     "koa-body": "^4.1.1"

@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const koaBody = require('koa-body');
-const ip = require('ip');
+const router = require('./routes/routes');
 
 //============================//
 //       µCoffee Server      //
@@ -8,16 +8,6 @@ const ip = require('ip');
 
 const app = module.exports = new Koa();
 
-function normalizePort(val) { // ========================================| Normalize a port into a number, string, or false
-  const port = parseInt(val, 10);
-  if (typeof port !== 'number') {
-    return val;
-  }
-  if (port >= 0) {
-    return port;
-  }
-  return false;
-}
 
 // Initiate koa-body
 app.use(koaBody({jsonLimit: '15kb'}));
@@ -37,55 +27,6 @@ app.use(async (ctx, next) => {
   ctx.set('X-Response-Time', `${ms}ms`);
 });
 
-// response
-app.use(async ctx => {
-  const body = ctx.request.body;
-  if (!body) ctx.throw(400, 'body required');
-  if (!body.challenge) {
-    const channel = body.channel_id;
-    const slackMsg = {
-      "channel": channel,
-      "blocks": [
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": "I'm the *coffee cloud*, and I want to know if you would like to get some coffee with everyone?"
-          }
-        },
-        {
-          "type": "actions",
-          "block_id": "coffee_response",
-          "elements": [
-            {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": "Yes"
-              },
-              "value": "true",
-              "action_id": "willComeButton",
-              "style": "primary"
-            },
-            {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": "No"
-              },
-              "value": "false",
-              "action_id": "wontComeButton",
-              "style": "danger"
-            }
-          ]
-        }]
-    };
-    console.log(body);
-    ctx.body = slackMsg;
-  } else {
-    ctx.body = body.challenge;
-  }
-});
+app.use(router.routes()).use(router.allowedMethods());
 
-const port = normalizePort(process.env.PORT || '2777'); // Get port from environment
-app.listen(port);
+module.exports = app;
