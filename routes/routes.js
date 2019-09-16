@@ -1,13 +1,11 @@
 const Router = require('@koa/router');
 const router = module.exports = new Router();
 
-router.get('/', async(ctx, next) => {
-  ctx.body = {"title": "Why are you even seeing this page?"}
-});
+router.get('/', async(ctx, next) => { ctx.body = {"title": "Why are you even seeing this page?"} });
 router.post('/', async(ctx, next) => {
-  const body = ctx.request.body;
-  if (!body) ctx.throw(400, 'body required');
-  if (!body.challenge) {
+  try {
+    const body = ctx.request.body;
+    if (!body) ctx.throw(400, 'body required');
     const channel = body.channel_id;
     const slackMsg = {
       "channel": channel,
@@ -48,8 +46,16 @@ router.post('/', async(ctx, next) => {
     };
     console.log(body);
     ctx.body = slackMsg;
-  } else {
-    ctx.body = body.challenge;
-  }
+  } catch (e) {console.error(e);}
+});
+
+router.get('/events', async(ctx, next) => {
+  try {
+    const body = ctx.request.body;
+    if (!body.challenge){
+      console.log(body);
+      ctx.body = body;
+    } else { ctx.body = body.challenge; }
+  } catch (e) {console.error(e);}
 });
 module.exports = router;

@@ -5,22 +5,17 @@ const router = require('./routes/routes');
 //============================//
 //       µCoffee Server      //
 //==========================//
-
 const app = module.exports = new Koa();
 
+app.use(koaBody({jsonLimit: '15kb'})); // Initiate koa-body
 
-// Initiate koa-body
-app.use(koaBody({jsonLimit: '15kb'}));
-
-// logger
-app.use(async (ctx, next) => {
+app.use(async (ctx, next) => { // logger
   await next();
   const rt = ctx.response.get('X-Response-Time');
   console.log(`${ctx.method} ${ctx.url} - ${rt}`);
 });
 
-// x-response-time
-app.use(async (ctx, next) => {
+app.use(async (ctx, next) => { // x-response-time
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
@@ -28,5 +23,4 @@ app.use(async (ctx, next) => {
 });
 
 app.use(router.routes()).use(router.allowedMethods());
-
 module.exports = app;

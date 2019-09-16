@@ -7,6 +7,5 @@ function normalizePort(val) { // ========================================| Norma
   if (port >= 0) { return port; }
   return false;
 }
-
 const port = normalizePort(process.env.PORT || '2777'); // Get port from environment
 app.listen(port);
