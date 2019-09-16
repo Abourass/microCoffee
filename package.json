@@ -2,7 +2,8 @@
   "name": "coffee",
   "version": "0.0.1",
   "scripts": {
-    "start": "npx nodemon app.js"
+    "dev": "npx nodemon app.js",
+    "start": "node app.js"
   },
   "dependencies": {
     "ip": "^1.1.5",
