@@ -14,7 +14,7 @@ router.post('/', async(ctx, next) => {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": "I'm the *coffee cloud*, and I want to know if you would like to get some coffee with everyone?"
+            "text": `I'm the *coffee cloud*, and <@${body.user_id}> want to know if you would like to get some coffee with everyone?`
           }
         },
         {
