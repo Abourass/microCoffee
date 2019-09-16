@@ -54,9 +54,9 @@ app.use(async ctx => {
         },
       },
       {
+        type: "section",
         "text": "Choose a response",
-        "fallback": "Fuck, you broke it me",
-        "callback_id": "coffee_response",
+        "block_id": "coffee_response",
         "color": "#13a9e3",
         "actions": [
           {
