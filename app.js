@@ -37,15 +37,19 @@ app.use(async (ctx, next) => {
 app.use(async ctx => {
   const body = ctx.request.body;
   if (!body) ctx.throw(400, 'body required');
-const slackMsg = {
-  "type": "section",
-  "text": {
-    "type": "mrkdwn",
-    "text": `${body.user_id} wants to know if you would like to join them in getting coffee?`
-  }
-};
+  const slackMsg = {
+    "type": "section",
+    "text": {
+      "type": "mrkdwn",
+      "text": `${body.user_id} wants to know if you would like to join them in getting coffee?`
+    }
+  };
 
   console.log(body);
+
+  console.log('Response message was');
+
+  console.log(slackMsg);
 
   ctx.body = slackMsg;
 });
