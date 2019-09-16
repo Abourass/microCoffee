@@ -40,10 +40,48 @@ app.use(async ctx => {
   const slackMsg = {
     "type": "section",
     "response_type": "in_channel",
-    "text": `${body.user_id} wants to know if you would like to join them in getting coffee?`,
+    "text": `@${body.user_id} wants to know if you would like to join them in getting coffee?`,
     "attachments": [
       {
-        "text": "Say yes fuckwad"
+        "text": "Choose a response",
+        "fallback": "Fuck you, you broke it me",
+        "callback_id": "coffee_response",
+        "color": "#13a9e3",
+        "attachment_type": "default",
+        "actions": [
+          {
+            "name": "yes",
+            "text": "Yes",
+            "type": "button",
+            "value": "true"
+          },
+          {
+            "name": "no",
+            "text": "No",
+            "style": "danger",
+            "type": "button",
+            "value": "false",
+          confirm: {
+            "title": "Are you sure?",
+            "text": "C'mon...",
+            "ok_text": "Yes",
+            "dismiss_text": "No, I'm sure"
+          }
+          },
+          {
+            "name": "game",
+            "text": "Thermonuclear War",
+            "style": "danger",
+            "type": "button",
+            "value": "war",
+            "confirm": {
+              "title": "Are you sure?",
+              "text": "Wouldn't you prefer a good game of chess?",
+              "ok_text": "Yes",
+              "dismiss_text": "No"
+            }
+          }
+        ]
       }
     ]
   };
