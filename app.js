@@ -1,11 +1,15 @@
 const Koa = require('koa');
+const koaBody = require('koa-body');
 const ip = require('ip');
 
 //============================//
 //       µCoffee Server      //
 //==========================//
 
-const app = new Koa();
+const app = module.exports = new Koa();
+
+// Initiate koa-body
+app.use(koaBody({jsonLimit: '15kb'}));
 
 // logger
 app.use(async (ctx, next) => {
@@ -24,7 +28,10 @@ app.use(async (ctx, next) => {
 
 // response
 app.use(async ctx => {
-  ctx.body = 'Hello World';
+  const body = ctx.request.body;
+  if (!body) ctx.throw(400, 'body required');
+  console.log(body);
+  ctx.body = body;
 });
 
 app.listen(2777);
