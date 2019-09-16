@@ -54,7 +54,7 @@ app.use(async ctx => {
         },
       },
       {
-        type: "section",
+        "type": "section",
         "text": "Choose a response",
         "block_id": "coffee_response",
         "color": "#13a9e3",
