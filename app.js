@@ -39,10 +39,13 @@ app.use(async ctx => {
   if (!body) ctx.throw(400, 'body required');
   const slackMsg = {
     "type": "section",
-    "text": {
-      "type": "mrkdwn",
-      "text": `${body.user_id} wants to know if you would like to join them in getting coffee?`
-    }
+    "response_type": "in_channel",
+    "text": `${body.user_id} wants to know if you would like to join them in getting coffee?`,
+    "attachments": [
+      {
+        "text": "Say yes fuckwad"
+      }
+    ]
   };
 
   console.log(body);
