@@ -10,8 +10,12 @@ const app = module.exports = new Koa();
 
 function normalizePort(val) { // ========================================| Normalize a port into a number, string, or false
   const port = parseInt(val, 10);
-  if (typeof port !== 'number') { return val; }
-  if (port >= 0) { return port; }
+  if (typeof port !== 'number') {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
   return false;
 }
 
@@ -40,7 +44,10 @@ app.use(async ctx => {
   const slackMsg = {
     "type": "section",
     "response_type": "in_channel",
-    "text": `@${body.user_id} wants to know if you would like to join them in getting coffee?`,
+    "text": {
+      "type": "mrkdwn",
+      "text": "I'm the coffee cloud, and I want to know if you would like to get some coffee with everyone?"
+    },
     "attachments": [
       {
         "text": "Choose a response",
@@ -61,36 +68,19 @@ app.use(async ctx => {
             "style": "danger",
             "type": "button",
             "value": "false",
-          confirm: {
-            "title": "Are you sure?",
-            "text": "C'mon...",
-            "ok_text": "Yes",
-            "dismiss_text": "No, I'm sure"
-          }
-          },
-          {
-            "name": "game",
-            "text": "Thermonuclear War",
-            "style": "danger",
-            "type": "button",
-            "value": "war",
-            "confirm": {
+            confirm: {
               "title": "Are you sure?",
-              "text": "Wouldn't you prefer a good game of chess?",
+              "text": "C'mon...",
               "ok_text": "Yes",
-              "dismiss_text": "No"
+              "dismiss_text": "No, I'm sure"
             }
-          }
+          },
         ]
       }
     ]
   };
 
   console.log(body);
-
-  console.log('Response message was');
-
-  console.log(slackMsg);
 
   ctx.body = slackMsg;
 });
